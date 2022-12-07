@@ -1,0 +1,125 @@
+C:\Users\seise\PycharmProjects\cis519final\venv2\Scripts\python.exe "C:\Program Files\JetBrains\PyCharm 2021.2.2\plugins\python\helpers\pydev\pydevconsole.py" --mode=client --port=49187
+import sys; print('Python %s on %s' % (sys.version, sys.platform))
+sys.path.extend(['C:\\Users\\seise\\PycharmProjects\\cis519final', 'C:/Users/seise/PycharmProjects/cis519final'])
+PyDev console: starting.
+Python 3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)] on win32
+runfile('C:/Users/seise/PycharmProjects/cis519final/VGG19.py', wdir='C:/Users/seise/PycharmProjects/cis519final')
+Found 12121 images belonging to 3 classes.
+Found 1515 images belonging to 3 classes.
+2022-12-06 23:40:15.583737: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-12-06 23:40:16.326744: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1616] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9436 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 3080 Ti, pci bus id: 0000:01:00.0, compute capability: 8.6
+Model: "vgg19"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ input_1 (InputLayer)        [(None, 256, 256, 3)]     0         
+                                                                 
+ block1_conv1 (Conv2D)       (None, 256, 256, 64)      1792      
+                                                                 
+ block1_conv2 (Conv2D)       (None, 256, 256, 64)      36928     
+                                                                 
+ block1_pool (MaxPooling2D)  (None, 128, 128, 64)      0         
+                                                                 
+ block2_conv1 (Conv2D)       (None, 128, 128, 128)     73856     
+                                                                 
+ block2_conv2 (Conv2D)       (None, 128, 128, 128)     147584    
+                                                                 
+ block2_pool (MaxPooling2D)  (None, 64, 64, 128)       0         
+                                                                 
+ block3_conv1 (Conv2D)       (None, 64, 64, 256)       295168    
+                                                                 
+ block3_conv2 (Conv2D)       (None, 64, 64, 256)       590080    
+                                                                 
+ block3_conv3 (Conv2D)       (None, 64, 64, 256)       590080    
+                                                                 
+ block3_conv4 (Conv2D)       (None, 64, 64, 256)       590080    
+                                                                 
+ block3_pool (MaxPooling2D)  (None, 32, 32, 256)       0         
+                                                                 
+ block4_conv1 (Conv2D)       (None, 32, 32, 512)       1180160   
+                                                                 
+ block4_conv2 (Conv2D)       (None, 32, 32, 512)       2359808   
+                                                                 
+ block4_conv3 (Conv2D)       (None, 32, 32, 512)       2359808   
+                                                                 
+ block4_conv4 (Conv2D)       (None, 32, 32, 512)       2359808   
+                                                                 
+ block4_pool (MaxPooling2D)  (None, 16, 16, 512)       0         
+                                                                 
+ block5_conv1 (Conv2D)       (None, 16, 16, 512)       2359808   
+                                                                 
+ block5_conv2 (Conv2D)       (None, 16, 16, 512)       2359808   
+                                                                 
+ block5_conv3 (Conv2D)       (None, 16, 16, 512)       2359808   
+                                                                 
+ block5_conv4 (Conv2D)       (None, 16, 16, 512)       2359808   
+                                                                 
+ block5_pool (MaxPooling2D)  (None, 8, 8, 512)         0         
+                                                                 
+=================================================================
+Total params: 20,024,384
+Trainable params: 0
+Non-trainable params: 20,024,384
+_________________________________________________________________
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ vgg19 (Functional)          (None, 8, 8, 512)         20024384  
+                                                                 
+ global_average_pooling2d (G  (None, 512)              0         
+ lobalAveragePooling2D)                                          
+                                                                 
+ dense (Dense)               (None, 128)               65664     
+                                                                 
+ batch_normalization (BatchN  (None, 128)              512       
+ ormalization)                                                   
+                                                                 
+ dropout (Dropout)           (None, 128)               0         
+                                                                 
+ dense_1 (Dense)             (None, 3)                 387       
+                                                                 
+=================================================================
+Total params: 20,090,947
+Trainable params: 66,307
+Non-trainable params: 20,024,640
+_________________________________________________________________
+2022-12-06 23:40:19.563132: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1616] Created device /device:GPU:0 with 9436 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 3080 Ti, pci bus id: 0000:01:00.0, compute capability: 8.6
+Found GPU at: /device:GPU:0
+Epoch 1/150
+2022-12-06 23:40:23.048147: I tensorflow/stream_executor/cuda/cuda_dnn.cc:384] Loaded cuDNN version 8100
+2022-12-06 23:40:25.987999: W tensorflow/core/common_runtime/bfc_allocator.cc:290] Allocator (GPU_0_bfc) ran out of memory trying to allocate 2.02GiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+2022-12-06 23:40:25.988506: W tensorflow/core/kernels/gpu_utils.cc:50] Failed to allocate memory for convolution redzone checking; skipping this check. This is benign and only means that we won't check cudnn for out-of-bounds reads and writes. This message will only be printed once.
+2022-12-06 23:40:34.302821: I tensorflow/stream_executor/cuda/cuda_blas.cc:1614] TensorFloat-32 will be used for the matrix multiplication. This will only be logged once.
+53/95 [===============>..............] - ETA: 15s - loss: 0.6431 - precision: 0.6004 - recall: 0.8368 - accuracy: 0.7585 - true_negatives: 9790.0000 - true_positives: 5677.0000 - false_negatives: 1107.0000 - false_positives: 3778.0000 - specificity: 0.6154 - f_measure: 0.7085 - f1_score: 0.70112022-12-06 23:40:53.278108: W tensorflow/core/common_runtime/bfc_allocator.cc:290] Allocator (GPU_0_bfc) ran out of memory trying to allocate 2.80GiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+95/95 [==============================] - ETA: 0s - loss: 0.5064 - precision: 0.6558 - recall: 0.8824 - accuracy: 0.8187 - true_negatives: 18629.0000 - true_positives: 10696.0000 - false_negatives: 1425.0000 - false_positives: 5613.0000 - specificity: 0.6515 - f_measure: 0.7490 - f1_score: 0.75492022-12-06 23:41:20.288554: W tensorflow/core/common_runtime/bfc_allocator.cc:290] Allocator (GPU_0_bfc) ran out of memory trying to allocate 3.36GiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+95/95 [==============================] - 70s 588ms/step - loss: 0.5064 - precision: 0.6558 - recall: 0.8824 - accuracy: 0.8187 - true_negatives: 18629.0000 - true_positives: 10696.0000 - false_negatives: 1425.0000 - false_positives: 5613.0000 - specificity: 0.6515 - f_measure: 0.7490 - f1_score: 0.7549 - val_loss: 0.8804 - val_precision: 0.6726 - val_recall: 0.6726 - val_accuracy: 0.6726 - val_true_negatives: 2534.0000 - val_true_positives: 1019.0000 - val_false_negatives: 496.0000 - val_false_positives: 496.0000 - val_specificity: 0.7094 - val_f_measure: 0.6898 - val_f1_score: 0.6721 - lr: 0.0010
+Epoch 2/150
+95/95 [==============================] - 40s 424ms/step - loss: 0.2513 - precision: 0.7679 - recall: 0.9619 - accuracy: 0.9122 - true_negatives: 20718.0000 - true_positives: 11659.0000 - false_negatives: 462.0000 - false_positives: 3524.0000 - specificity: 0.7495 - f_measure: 0.8424 - f1_score: 0.8542 - val_loss: 1.0182 - val_precision: 0.6726 - val_recall: 0.6726 - val_accuracy: 0.6726 - val_true_negatives: 2534.0000 - val_true_positives: 1019.0000 - val_false_negatives: 496.0000 - val_false_positives: 496.0000 - val_specificity: 0.7611 - val_f_measure: 0.7135 - val_f1_score: 0.6721 - lr: 0.0010
+Epoch 3/150
+95/95 [==============================] - ETA: 0s - loss: 0.2195 - precision: 0.7625 - recall: 0.9743 - accuracy: 0.9196 - true_negatives: 20563.0000 - true_positives: 11810.0000 - false_negatives: 311.0000 - false_positives: 3679.0000 - specificity: 0.7698 - f_measure: 0.8600 - f1_score: 0.8557
+Epoch 3: ReduceLROnPlateau reducing learning rate to 0.0005000000237487257.
+95/95 [==============================] - 39s 406ms/step - loss: 0.2195 - precision: 0.7625 - recall: 0.9743 - accuracy: 0.9196 - true_negatives: 20563.0000 - true_positives: 11810.0000 - false_negatives: 311.0000 - false_positives: 3679.0000 - specificity: 0.7698 - f_measure: 0.8600 - f1_score: 0.8557 - val_loss: 1.2569 - val_precision: 0.6733 - val_recall: 0.6746 - val_accuracy: 0.6726 - val_true_negatives: 2534.0000 - val_true_positives: 1022.0000 - val_false_negatives: 493.0000 - val_false_positives: 496.0000 - val_specificity: 0.7779 - val_f_measure: 0.7221 - val_f1_score: 0.6735 - lr: 0.0010
+Epoch 4/150
+95/95 [==============================] - 39s 413ms/step - loss: 0.1946 - precision: 0.7652 - recall: 0.9795 - accuracy: 0.9327 - true_negatives: 20599.0000 - true_positives: 11873.0000 - false_negatives: 248.0000 - false_positives: 3643.0000 - specificity: 0.7788 - f_measure: 0.8677 - f1_score: 0.8595 - val_loss: 0.6418 - val_precision: 0.6731 - val_recall: 0.8033 - val_accuracy: 0.7287 - val_true_negatives: 2439.0000 - val_true_positives: 1217.0000 - val_false_negatives: 298.0000 - val_false_positives: 591.0000 - val_specificity: 0.7090 - val_f_measure: 0.7531 - val_f1_score: 0.7333 - lr: 5.0000e-04
+Epoch 5/150
+95/95 [==============================] - 41s 430ms/step - loss: 0.1815 - precision: 0.7669 - recall: 0.9822 - accuracy: 0.9361 - true_negatives: 20624.0000 - true_positives: 11905.0000 - false_negatives: 216.0000 - false_positives: 3618.0000 - specificity: 0.7837 - f_measure: 0.8717 - f1_score: 0.8615 - val_loss: 0.5406 - val_precision: 0.7151 - val_recall: 0.9380 - val_accuracy: 0.7459 - val_true_negatives: 2464.0000 - val_true_positives: 1421.0000 - val_false_negatives: 94.0000 - val_false_positives: 566.0000 - val_specificity: 0.7495 - val_f_measure: 0.8330 - val_f1_score: 0.8117 - lr: 5.0000e-04
+Epoch 6/150
+95/95 [==============================] - 38s 402ms/step - loss: 0.1772 - precision: 0.7660 - recall: 0.9848 - accuracy: 0.9379 - true_negatives: 20595.0000 - true_positives: 11937.0000 - false_negatives: 184.0000 - false_positives: 3647.0000 - specificity: 0.7873 - f_measure: 0.8750 - f1_score: 0.8620 - val_loss: 0.2778 - val_precision: 0.7307 - val_recall: 0.9459 - val_accuracy: 0.8904 - val_true_negatives: 2502.0000 - val_true_positives: 1433.0000 - val_false_negatives: 82.0000 - val_false_positives: 528.0000 - val_specificity: 0.7913 - val_f_measure: 0.8617 - val_f1_score: 0.8251 - lr: 5.0000e-04
+Epoch 7/150
+95/95 [==============================] - 37s 390ms/step - loss: 0.1725 - precision: 0.7609 - recall: 0.9855 - accuracy: 0.9394 - true_negatives: 20489.0000 - true_positives: 11945.0000 - false_negatives: 176.0000 - false_positives: 3753.0000 - specificity: 0.7873 - f_measure: 0.8753 - f1_score: 0.8589 - val_loss: 0.3649 - val_precision: 0.7443 - val_recall: 0.9683 - val_accuracy: 0.8521 - val_true_negatives: 2526.0000 - val_true_positives: 1467.0000 - val_false_negatives: 48.0000 - val_false_positives: 504.0000 - val_specificity: 0.8006 - val_f_measure: 0.8764 - val_f1_score: 0.8418 - lr: 5.0000e-04
+Epoch 8/150
+95/95 [==============================] - 39s 405ms/step - loss: 0.1706 - precision: 0.7604 - recall: 0.9851 - accuracy: 0.9398 - true_negatives: 20480.0000 - true_positives: 11941.0000 - false_negatives: 180.0000 - false_positives: 3762.0000 - specificity: 0.7905 - f_measure: 0.8771 - f1_score: 0.8585 - val_loss: 0.1522 - val_precision: 0.6900 - val_recall: 0.9947 - val_accuracy: 0.9492 - val_true_negatives: 2353.0000 - val_true_positives: 1507.0000 - val_false_negatives: 8.0000 - val_false_positives: 677.0000 - val_specificity: 0.7170 - val_f_measure: 0.8333 - val_f1_score: 0.8152 - lr: 5.0000e-04
+Epoch 9/150
+95/95 [==============================] - 40s 424ms/step - loss: 0.1656 - precision: 0.7556 - recall: 0.9876 - accuracy: 0.9398 - true_negatives: 20371.0000 - true_positives: 11971.0000 - false_negatives: 150.0000 - false_positives: 3871.0000 - specificity: 0.7893 - f_measure: 0.8774 - f1_score: 0.8567 - val_loss: 0.4273 - val_precision: 0.7448 - val_recall: 0.9399 - val_accuracy: 0.8495 - val_true_negatives: 2542.0000 - val_true_positives: 1424.0000 - val_false_negatives: 91.0000 - val_false_positives: 488.0000 - val_specificity: 0.8145 - val_f_measure: 0.8727 - val_f1_score: 0.8309 - lr: 5.0000e-04
+Epoch 10/150
+95/95 [==============================] - ETA: 0s - loss: 0.1653 - precision: 0.7587 - recall: 0.9871 - accuracy: 0.9404 - true_negatives: 20437.0000 - true_positives: 11965.0000 - false_negatives: 156.0000 - false_positives: 3805.0000 - specificity: 0.7918 - f_measure: 0.8787 - f1_score: 0.8582
+Epoch 10: ReduceLROnPlateau reducing learning rate to 0.0002500000118743628.
+95/95 [==============================] - 39s 406ms/step - loss: 0.1653 - precision: 0.7587 - recall: 0.9871 - accuracy: 0.9404 - true_negatives: 20437.0000 - true_positives: 11965.0000 - false_negatives: 156.0000 - false_positives: 3805.0000 - specificity: 0.7918 - f_measure: 0.8787 - f1_score: 0.8582 - val_loss: 1.3714 - val_precision: 0.7135 - val_recall: 0.8284 - val_accuracy: 0.7221 - val_true_negatives: 2526.0000 - val_true_positives: 1255.0000 - val_false_negatives: 260.0000 - val_false_positives: 504.0000 - val_specificity: 0.8261 - val_f_measure: 0.8271 - val_f1_score: 0.7670 - lr: 5.0000e-04
+Epoch 11/150
+95/95 [==============================] - 40s 415ms/step - loss: 0.1578 - precision: 0.7573 - recall: 0.9882 - accuracy: 0.9436 - true_negatives: 20403.0000 - true_positives: 11978.0000 - false_negatives: 143.0000 - false_positives: 3839.0000 - specificity: 0.7908 - f_measure: 0.8785 - f1_score: 0.8577 - val_loss: 0.6366 - val_precision: 0.6897 - val_recall: 0.8845 - val_accuracy: 0.8139 - val_true_negatives: 2427.0000 - val_true_positives: 1340.0000 - val_false_negatives: 175.0000 - val_false_positives: 603.0000 - val_specificity: 0.7801 - val_f_measure: 0.8291 - val_f1_score: 0.7757 - lr: 2.5000e-04
+Epoch 12/150
+95/95 [==============================] - 39s 411ms/step - loss: 0.1534 - precision: 0.7538 - recall: 0.9895 - accuracy: 0.9449 - true_negatives: 20325.0000 - true_positives: 11994.0000 - false_negatives: 127.0000 - false_positives: 3917.0000 - specificity: 0.7924 - f_measure: 0.8800 - f1_score: 0.8559 - val_loss: 0.1421 - val_precision: 0.7937 - val_recall: 0.9901 - val_accuracy: 0.9479 - val_true_negatives: 2640.0000 - val_true_positives: 1500.0000 - val_false_negatives: 15.0000 - val_false_positives: 390.0000 - val_specificity: 0.8096 - val_f_measure: 0.8908 - val_f1_score: 0.8814 - lr: 2.5000e-04
+Epoch 12: early stopping
+time: [69.53351616859436, 40.32814121246338, 38.657081842422485, 39.446167945861816, 40.8878538608551, 38.27776861190796, 37.21105194091797, 38.822980642318726, 40.37672209739685, 38.612780809402466, 39.81270360946655, 39.25251317024231]

@@ -208,7 +208,7 @@ history = model.fit(train_generator,
 # save model and training history, epoch time
 names = ['Xception','VGG16','Mobilenet']
 current_model_name = names[2]
-model.save("./saved-models/Modified_"+names[2]+".h5")
+model.save("./saved-models/Modified_"+current_model_name+".h5")
 with open('./saved-history/'+current_model_name, 'wb') as file_pi:
     pickle.dump(history.history, file_pi)
 print('time:',time_callback.times)

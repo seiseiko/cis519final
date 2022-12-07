@@ -153,19 +153,19 @@ val_generator = val_datagen.flow_from_directory(
 
 """# 2. Transfer learning
 
-## MobileNetV2
+## VGG19
 """
 
-Model_MobileNetV2 = tf.keras.applications.mobilenet_v2.MobileNetV2(include_top=False, weights='imagenet',
-                                                                  input_shape=(IMAGE_HEIGHT, IMAGE_WIDTH, 3))
-# non-trainable
-for layer in Model_MobileNetV2.layers:
-    layer.trainable = False
+VGG_19_pre_trained = tf.keras.applications.vgg19.VGG19(include_top=False, weights='imagenet', input_shape=(IMAGE_HEIGHT, IMAGE_WIDTH, 3))
 
-Model_MobileNetV2.summary()
+
+for layer in VGG_19_pre_trained.layers:
+	layer.trainable = False
+
+VGG_19_pre_trained.summary()
 
 model = tf.keras.Sequential([
-    Model_MobileNetV2,
+    VGG_19_pre_trained,
     tf.keras.layers.GlobalAveragePooling2D(),
     tf.keras.layers.Dense(128, activation='relu'),
     tf.keras.layers.BatchNormalization(),
@@ -177,7 +177,7 @@ model.summary()
 
 time_callback = TimeHistory()
 callbacks = [
-    tf.keras.callbacks.ModelCheckpoint("./checkpoint/Modified_Mobilenet.h5", save_best_only=True, verbose=0),
+    tf.keras.callbacks.ModelCheckpoint("./checkpoint/Modified_VGG19.h5", save_best_only=True, verbose=0),
     tf.keras.callbacks.EarlyStopping(patience=4, monitor='val_accuracy', verbose=1),
     tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=2, verbose=1),
     time_callback
@@ -206,9 +206,9 @@ history = model.fit(train_generator,
                     callbacks=[callbacks])
 
 # save model and training history, epoch time
-names = ['Xception','VGG16','Mobilenet']
-current_model_name = names[2]
-model.save("./saved-models/Modified_"+names[2]+".h5")
+names = ['Xception','VGG16','Mobilenet','VGG19']
+current_model_name = names[3]
+model.save("./saved-models/Modified_"+current_model_name+".h5")
 with open('./saved-history/'+current_model_name, 'wb') as file_pi:
     pickle.dump(history.history, file_pi)
 print('time:',time_callback.times)
