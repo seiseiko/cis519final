@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""519 Final - XCeption
+"""519 Final - VGG19
 # **Machine Learning for COVID-19 Diagnosis**
 ---
 Team: Lanqing Bao, Yuqi Zhang, Zeyuan Xu
@@ -153,20 +153,19 @@ val_generator = val_datagen.flow_from_directory(
 
 """# 2. Transfer learning
 
-## XCeption
+## MobileNetV2
 """
 
-Model_Xcep = tf.keras.applications.Xception(include_top=False, weights='imagenet',
-                                            input_shape=(IMAGE_HEIGHT, IMAGE_WIDTH, 3))
-
+Model_MobileNetV2 = tf.keras.applications.mobilenet_v2.MobileNetV2(include_top=False, weights='imagenet',
+                                                                  input_shape=(IMAGE_HEIGHT, IMAGE_WIDTH, 3))
 # non-trainable
-for layer in Model_Xcep.layers:
+for layer in Model_MobileNetV2.layers:
     layer.trainable = False
 
-Model_Xcep.summary()
+Model_MobileNetV2.summary()
 
 model = tf.keras.Sequential([
-    Model_Xcep,
+    Model_MobileNetV2,
     tf.keras.layers.GlobalAveragePooling2D(),
     tf.keras.layers.Dense(128, activation='relu'),
     tf.keras.layers.BatchNormalization(),
@@ -178,7 +177,7 @@ model.summary()
 
 time_callback = TimeHistory()
 callbacks = [
-    tf.keras.callbacks.ModelCheckpoint("./checkpoint/Modified_XCept.h5", save_best_only=True, verbose=0),
+    tf.keras.callbacks.ModelCheckpoint("./checkpoint/Modified_Mobilenet.h5", save_best_only=True, verbose=0),
     tf.keras.callbacks.EarlyStopping(patience=4, monitor='val_accuracy', verbose=1),
     tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=2, verbose=1),
     time_callback
@@ -208,14 +207,8 @@ history = model.fit(train_generator,
 
 # save model and training history, epoch time
 names = ['Xception','VGG16','Mobilenet']
-current_model_name = names[0]
-model.save("./saved-models/Modified_Xception.h5")
+current_model_name = names[2]
+model.save("./saved-models/Modified_"+names[2]+".h5")
 with open('./saved-history/'+current_model_name, 'wb') as file_pi:
     pickle.dump(history.history, file_pi)
 print('time:',time_callback.times)
-
-"""#Result"""
-
-fig_path = os.path.join('./fig',current_model_name+'/')
-if not os.path.exists(fig_path):
-    os.makedirs(fig_path)

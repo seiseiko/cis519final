@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""519 Final - XCeption
+"""519 Final - Mobilenet
 # **Machine Learning for COVID-19 Diagnosis**
 ---
 Team: Lanqing Bao, Yuqi Zhang, Zeyuan Xu
@@ -7,14 +7,13 @@ Team: Lanqing Bao, Yuqi Zhang, Zeyuan Xu
 # 1. Library, model and data setup
 """
 
-# Commented out IPython magic to ensure Python compatibility.
 # basic
 import os
 import matplotlib.pyplot as plt
 import numpy as np
 import time
 import pickle
-
+# for google colab
 #drive.mount('/gdrive')
 # %cd /gdrive/MyDrive/519Final/
 
@@ -25,12 +24,12 @@ from keras import backend as K
 from keras.preprocessing.image import ImageDataGenerator
 
 """###**Pre-trained model loading**
-
 Utilized in prev paper
 1.   ResNet50
-2.   VGG16
-
-
+2.   VGG19
+3.   MobileNet
+4.   Xception
+5.   Inception
 """
 
 from tensorflow.keras.applications.resnet50 import ResNet50
@@ -154,16 +153,11 @@ val_generator = val_datagen.flow_from_directory(
 
 """# 2. Transfer learning
 
-## XCeption
+## MobileNetV2
 """
 
-Model_Xcep = tf.keras.applications.Xception(include_top=False, weights='imagenet',
-                                            input_shape=(IMAGE_HEIGHT, IMAGE_WIDTH, 3))
-Model_VGG = tf.keras.applications.vgg16.VGG16(include_top=False, weights='imagenet',
-                                              input_shape=(IMAGE_HEIGHT, IMAGE_WIDTH, 3))
-
 Model_MobileNetV2 = tf.keras.applications.mobilenet_v2.MobileNetV2(include_top=False, weights='imagenet',
-                                                                   input_shape=(IMAGE_HEIGHT, IMAGE_WIDTH, 3))
+                                                                  input_shape=(IMAGE_HEIGHT, IMAGE_WIDTH, 3))
 # non-trainable
 for layer in Model_MobileNetV2.layers:
     layer.trainable = False
@@ -183,7 +177,7 @@ model.summary()
 
 time_callback = TimeHistory()
 callbacks = [
-    tf.keras.callbacks.ModelCheckpoint("./checkpoint/Modified_XCept.h5", save_best_only=True, verbose=0),
+    tf.keras.callbacks.ModelCheckpoint("./checkpoint/Modified_Mobilenet.h5", save_best_only=True, verbose=0),
     tf.keras.callbacks.EarlyStopping(patience=4, monitor='val_accuracy', verbose=1),
     tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=2, verbose=1),
     time_callback
@@ -212,58 +206,9 @@ history = model.fit(train_generator,
                     callbacks=[callbacks])
 
 # save model and training history, epoch time
-current_model_name = 'Xception'
-model.save("./saved-models/Modified_Xception.h5")
-with open('/saved-history/'+current_model_name, 'wb') as file_pi:
+names = ['Xception','VGG16','Mobilenet']
+current_model_name = names[2]
+model.save("./saved-models/Modified_"+names[2]+".h5")
+with open('./saved-history/'+current_model_name, 'wb') as file_pi:
     pickle.dump(history.history, file_pi)
 print('time:',time_callback.times)
-
-"""#Result"""
-
-fig_path = os.path.join('./fig',current_model_name+'/')
-if not os.path.exists(fig_path):
-    os.makedirs(fig_path)
-
-# Accuracy & Loss
-plt.plot(history.history['accuracy'])
-plt.plot(history.history['val_accuracy'])
-plt.title('model accuracy')
-plt.ylabel('accuracy')
-plt.xlabel('epoch')
-plt.legend(['train', 'validation'], loc='upper left')
-plt.show()
-plt.savefig(fig_path+'accuracy.png')
-
-# loss
-plt.plot(history.history['loss'])
-plt.plot(history.history['val_loss'])
-plt.title('model loss - '+current_model_name)
-plt.ylabel('loss')
-plt.xlabel('epoch')
-plt.legend(['train', 'validation'], loc='upper left')
-plt.show()
-plt.savefig(fig_path+'loss.png')
-print(history.history)
-
-# Precision, Recall, Macro F1 score
-val_recall = history.history['val_recall']
-avg_recall = np.mean(val_recall)
-avg_recall
-
-val_precision = history.history['val_precision']
-avg_precision = np.mean(val_precision)
-avg_precision
-
-Train_accuracy = history.history['accuracy']
-
-epochs = range(1, len(Train_accuracy) + 1)
-plt.figure(figsize=(12, 6))
-plt.plot(epochs, val_recall, 'g', label='Validation Recall')
-plt.plot(epochs, val_precision, 'b', label='Validation Prcision')
-plt.title('Validation recall and Validation Percision')
-plt.xlabel('Epochs')
-plt.ylabel('Recall and Precision')
-plt.legend()
-plt.ylim(0, 1)
-plt.show()
-plt.savefig(fig_path+'PercisionRecall.png')
