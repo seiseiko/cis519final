@@ -126,7 +126,7 @@ def f1_score(y_true, y_pred):
 batch_size = 128
 IMAGE_HEIGHT = 256
 IMAGE_WIDTH = 256
-data_path = './data/'
+data_path = './datasmall;/'
 train_data_path = os.path.join(data_path, 'train/')
 val_data_path = os.path.join(data_path, 'validation/')
 test_data_path = os.path.join(data_path, 'test/')
@@ -167,9 +167,6 @@ Model_MobileNetV2.summary()
 model = tf.keras.Sequential([
     Model_MobileNetV2,
     tf.keras.layers.GlobalAveragePooling2D(),
-    tf.keras.layers.Dense(128, activation='relu'),
-    tf.keras.layers.BatchNormalization(),
-    tf.keras.layers.Dropout(0.2),
     tf.keras.layers.Dense(3, activation='sigmoid')
 ])
 
@@ -178,8 +175,8 @@ model.summary()
 time_callback = TimeHistory()
 callbacks = [
     tf.keras.callbacks.ModelCheckpoint("./checkpoint/Modified_Mobilenet.h5", save_best_only=True, verbose=0),
-    tf.keras.callbacks.EarlyStopping(patience=4, monitor='val_accuracy', verbose=1),
-    tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=2, verbose=1),
+    tf.keras.callbacks.EarlyStopping(patience=10, monitor='val_accuracy', verbose=1),
+    tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=20, verbose=1),
     time_callback
 ]
 # Compiling the model, set up the metrics

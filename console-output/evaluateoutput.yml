@@ -42,3 +42,42 @@ Modified_Xception.h5
 1517/1517 [==============================] - 14s 9ms/step - loss: 0.2076 - precision: 0.6458 - recall: 0.9941 - accuracy: 0.9222 - true_negatives: 2207.0000 - true_positives: 1508.0000 - false_negatives: 9.0000 - false_positives: 827.0000 - specificity: 0.6826 - f_measure: 0.7973 - f1_score: 0.8170
 ['loss', 'precision', 'recall', 'accuracy', 'true_negatives', 'true_positives', 'false_negatives', 'false_positives', 'specificity', 'f_measure', 'f1_score']
 [0.20758654177188873, 0.6458244323730469, 0.9940672516822815, 0.922214925289154, 2207.0, 1508.0, 9.0, 827.0, 0.6826267838478088, 0.7972849011421204, 0.8169629573822021]
+
+// 2
+
+C:\Users\seise\PycharmProjects\cis519final\venv2\Scripts\python.exe "C:\Program Files\JetBrains\PyCharm 2021.2.2\plugins\python\helpers\pydev\pydevconsole.py" --mode=client --port=64270
+import sys; print('Python %s on %s' % (sys.version, sys.platform))
+sys.path.extend(['C:\\Users\\seise\\PycharmProjects\\cis519final', 'C:/Users/seise/PycharmProjects/cis519final'])
+PyDev console: starting.
+Python 3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)] on win32
+runfile('C:/Users/seise/PycharmProjects/cis519final/test.py', wdir='C:/Users/seise/PycharmProjects/cis519final')
+Found 8305 images belonging to 3 classes.
+2022-12-09 13:27:52.387288: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-12-09 13:27:52.879160: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1616] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 8814 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 3080 Ti, pci bus id: 0000:01:00.0, compute capability: 8.6
+Modified_EfficientNet.h5
+2022-12-09 13:28:16.718976: I tensorflow/stream_executor/cuda/cuda_dnn.cc:384] Loaded cuDNN version 8100
+2022-12-09 13:28:19.048667: I tensorflow/stream_executor/cuda/cuda_blas.cc:1614] TensorFloat-32 will be used for the matrix multiplication. This will only be logged once.
+8305/8305 [==============================] - 363s 43ms/step - loss: 0.6970 - precision: 0.5779 - recall: 0.8256 - accuracy: 0.7052 - true_negatives: 11601.0000 - true_positives: 6857.0000 - false_negatives: 1448.0000 - false_positives: 5009.0000 - specificity: 0.6193 - f_measure: 0.6452 - f1_score: 0.6837
+['loss', 'precision', 'recall', 'accuracy', 'true_negatives', 'true_positives', 'false_negatives', 'false_positives', 'specificity', 'f_measure', 'f1_score']
+[0.6970267295837402, 0.5778695344924927, 0.8256471753120422, 0.7052378058433533, 11601.0, 6857.0, 1448.0, 5009.0, 0.6192958950996399, 0.6452199816703796, 0.6836946606636047]
+Modified_Inception.h5
+8305/8305 [==============================] - 158s 19ms/step - loss: 0.3373 - precision: 0.6935 - recall: 0.9511 - accuracy: 0.8756 - true_negatives: 13119.0000 - true_positives: 7899.0000 - false_negatives: 406.0000 - false_positives: 3491.0000 - specificity: 0.7138 - f_measure: 0.7957 - f1_score: 0.8303
+['loss', 'precision', 'recall', 'accuracy', 'true_negatives', 'true_positives', 'false_negatives', 'false_positives', 'specificity', 'f_measure', 'f1_score']
+[0.3373010754585266, 0.6935030817985535, 0.951113760471344, 0.8756170868873596, 13119.0, 7899.0, 406.0, 3491.0, 0.713801383972168, 0.7956954836845398, 0.8303450345993042]
+Modified_InceptionResnet.h5
+8305/8305 [==============================] - 254s 30ms/step - loss: 0.3019 - precision: 0.6803 - recall: 0.9567 - accuracy: 0.8862 - true_negatives: 12876.0000 - true_positives: 7945.0000 - false_negatives: 360.0000 - false_positives: 3734.0000 - specificity: 0.7098 - f_measure: 0.7956 - f1_score: 0.8252
+['loss', 'precision', 'recall', 'accuracy', 'true_negatives', 'true_positives', 'false_negatives', 'false_positives', 'specificity', 'f_measure', 'f1_score']
+[0.30186235904693604, 0.680280864238739, 0.9566526412963867, 0.8862131237983704, 12876.0, 7945.0, 360.0, 3734.0, 0.709824800491333, 0.7955505847930908, 0.8252081274986267]
+Modified_Mobilenet.h5
+8305/8305 [==============================] - 89s 11ms/step - loss: 0.2803 - precision: 0.6993 - recall: 0.9688 - accuracy: 0.8969 - true_negatives: 13150.0000 - true_positives: 8046.0000 - false_negatives: 259.0000 - false_positives: 3460.0000 - specificity: 0.7408 - f_measure: 0.8232 - f1_score: 0.8421
+['loss', 'precision', 'recall', 'accuracy', 'true_negatives', 'true_positives', 'false_negatives', 'false_positives', 'specificity', 'f_measure', 'f1_score']
+[0.2803385853767395, 0.6992873549461365, 0.968813955783844, 0.8969295620918274, 13150.0, 8046.0, 259.0, 3460.0, 0.7407803535461426, 0.8232219219207764, 0.8421255946159363]
+Modified_VGG19.h5
+8305/8305 [==============================] - 88s 10ms/step - loss: 0.3479 - precision: 0.6209 - recall: 0.9610 - accuracy: 0.8715 - true_negatives: 11737.0000 - true_positives: 7981.0000 - false_negatives: 324.0000 - false_positives: 4873.0000 - specificity: 0.6544 - f_measure: 0.7586 - f1_score: 0.7831
+['loss', 'precision', 'recall', 'accuracy', 'true_negatives', 'true_positives', 'false_negatives', 'false_positives', 'specificity', 'f_measure', 'f1_score']
+[0.34793171286582947, 0.6208962202072144, 0.9609873294830322, 0.8715232014656067, 11737.0, 7981.0, 324.0, 4873.0, 0.6543654203414917, 0.7586396336555481, 0.7830817103385925]
+Modified_Xception.h5
+8305/8305 [==============================] - 79s 9ms/step - loss: 0.3041 - precision: 0.7067 - recall: 0.9575 - accuracy: 0.8907 - true_negatives: 13309.0000 - true_positives: 7952.0000 - false_negatives: 353.0000 - false_positives: 3301.0000 - specificity: 0.7391 - f_measure: 0.8151 - f1_score: 0.8418
+['loss', 'precision', 'recall', 'accuracy', 'true_negatives', 'true_positives', 'false_negatives', 'false_positives', 'specificity', 'f_measure', 'f1_score']
+[0.3040972352027893, 0.7066559791564941, 0.9574955105781555, 0.8906682729721069, 13309.0, 7952.0, 353.0, 3301.0, 0.7391185164451599, 0.8150845766067505, 0.8418456315994263]

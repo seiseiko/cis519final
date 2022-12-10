@@ -22,6 +22,7 @@ import tensorflow as tf
 from tensorflow import keras
 from keras import backend as K
 from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.python.ops.confusion_matrix import confusion_matrix
 
 """###**Pre-trained model loading**
 Utilized in prev paper
@@ -55,6 +56,29 @@ The dataset has the following directory structure:
     |______ <b>VIRAL</b>: [Viral Pneumonia-1.png, Viral Pneumonia-2.png, Viral 
 </pre>
 """
+
+
+class PerclassAccuracy(keras.callbacks.Callback):
+    def on_train_begin(self, logs={}):
+        self._data = []
+
+    def on_epoch_end(self, batch, logs={}):
+        x_test, y_test = self.validation_data[0], self.validation_data[1]
+        y_predict = np.asarray(model.predict(x_test))
+
+        true = np.argmax(y_test, axis=1)
+        pred = np.argmax(y_predict, axis=1)
+
+        cm = confusion_matrix(true, pred)
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        self._data.append({
+            'classLevelaccuracy': cm.diagonal(),
+        })
+        return
+
+    def get_data(self):
+        return self._data
+
 class TimeHistory(keras.callbacks.Callback):
     def on_train_begin(self, logs={}):
         self.times = []
@@ -174,7 +198,6 @@ model = tf.keras.Sequential([
 ])
 
 model.summary()
-
 time_callback = TimeHistory()
 callbacks = [
     tf.keras.callbacks.ModelCheckpoint("./checkpoint/Modified_VGG19.h5", save_best_only=True, verbose=0),

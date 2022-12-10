@@ -85,7 +85,7 @@ def f1_score(y_true, y_pred):
 batch_size = 1
 IMAGE_HEIGHT = 256
 IMAGE_WIDTH = 256
-data_path = './data/'
+data_path = './datasmall;/'
 train_data_path = os.path.join(data_path, 'train/')
 val_data_path = os.path.join(data_path, 'validation/')
 test_data_path = os.path.join(data_path, 'test/')
